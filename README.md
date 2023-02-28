@@ -187,3 +187,9 @@ else:
 
 ## Contributing
 Contributions are welcome! If you find a bug or have a feature request, please open an issue or submit a pull request.
+
+## License
+This library is licensed under the MIT License. See the LICENSE file for more information.
+
+## Credits
+This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and the [`audreyr/cookiecutter-pypackage`](https://github.com/audreyr/cookiecutter-pypackage) project template.
