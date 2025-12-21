@@ -468,7 +468,7 @@ class TestUjeebuClientAccount(unittest.TestCase):
         self.client.account()
 
         call_args = mock_get.call_args
-        self.assertEqual(call_args.kwargs['headers']['user-agent'], 'Ujeebu-Python/0.1.1-beta')
+        self.assertEqual(call_args.kwargs['headers']['user-agent'], 'Ujeebu-Python/0.1.2-beta')
 
 
 if __name__ == '__main__':
