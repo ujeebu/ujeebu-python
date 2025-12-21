@@ -1,5 +1,5 @@
 # Ujeebu API Python SDK
-[Ujeebu](https://ujeebu.com) is a set of powerful APIs for Web data scraping and automatic content extraction. This SDK provides an easy-to-use interface for interacting with Ujeebu API. It is built on top of Node.js and uses the [axios](https://axios-http.com/) library to make HTTP requests.
+[Ujeebu](https://ujeebu.com) is a set of powerful APIs for Web data scraping and automatic content extraction. This SDK provides an easy-to-use interface for interacting with Ujeebu API. It is built on top of Python and uses the [requests](https://requests.readthedocs.io/) library to make HTTP requests.
 
 ## Installation
 You can install the SDK using pip:

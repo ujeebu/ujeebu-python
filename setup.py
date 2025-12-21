@@ -42,6 +42,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/ujeebu/ujeebu-python',
-    version='0.1.3-beta',
+    version='0.1.4-beta',
     zip_safe=False,
 )
