@@ -1,14 +1,17 @@
 import json
+import os
 
 from ujeebu_python import UjeebuClient
 
-API_KEY = "__YOUR-API-KEY__"
-ujeebu = UjeebuClient(api_key=API_KEY)
+API_KEY = os.getenv("UJEEBU_API_KEY")
+if not API_KEY:
+    raise ValueError("Please set UJEEBU_API_KEY environment variable")
+ujeebu = UjeebuClient(api_key=API_KEY, base_url="https://api.ujeebu.com")
 
-url = "https://ujeebu.com/docs/scrape-me/load-more"
+url = "https://scrape.li/load-more"
 response = ujeebu.scrape(url, params={
     # define what to extract 'raw', 'html', 'screenshot' or 'pdf'
-    "response_type": "dddd",
+    "response_type": "html",
 
     # return response in json format or
     "json": False,

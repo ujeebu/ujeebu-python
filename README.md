@@ -25,6 +25,9 @@ else:
 
 ##  APIs
 The SDK provides the following methods:
+
+### Core Methods
+
 - `scrape(url, params, headers)`
     - `url`: The url to scrape (required).
     - `params`: Dict of [scrape API params](https://ujeebu.com/docs/scrape#parameters) (optional).
@@ -39,14 +42,79 @@ The SDK provides the following methods:
 
 - `preview(url, params, headers)`
     - `url`: The url to extract (required).
-    - `params`: Dicto of [preview API params](https://ujeebu.com/docs/extract#parameters-1) (optional).
-    - `headers`: Dicto of headers to forward (optional).
+    - `params`: Dict of [preview API params](https://ujeebu.com/docs/extract#parameters-1) (optional).
+    - `headers`: Dict of headers to forward (optional).
+
+- `serp(params, headers)`
+    - `params`: Dict of [SERP API params](https://ujeebu.com/docs/serp#parameters) (optional).
+    - `headers`: Dict of headers to forward (optional).
+
+- `account()`
+    - Returns account information including usage, balance, and plan details.
+
+### Scrape Helper Methods
+
+- `get_pdf(url, params, headers)`
+    - Gets a PDF of a web page using the Scrape API.
+    - `url`: The URL to create a PDF from (required).
+    - `params`: Additional parameters for the PDF generation (optional).
+    - `headers`: Headers to forward to the request (optional).
+    - Automatically sets `response_type` to 'pdf' and `json` to True.
+
+- `get_screenshot(url, params, headers)`
+    - Gets a screenshot of a web page using the Scrape API.
+    - `url`: The URL to take a screenshot of (required).
+    - `params`: Additional parameters for the screenshot (optional).
+    - `headers`: Headers to forward to the request (optional).
+    - Automatically sets `response_type` to 'screenshot' and `json` to True.
+
+- `get_html(url, params, headers)`
+    - Gets the HTML of a web page using the Scrape API.
+    - `url`: The URL to get HTML from (required).
+    - `params`: Additional parameters for the request (optional).
+    - `headers`: Headers to forward to the request (optional).
+    - Automatically sets `response_type` to 'html' and `json` to True.
+
+- `scrape_with_rules(url, extract_rules, params, headers)`
+    - Extracts data from a web page using extraction rules with the Scrape API.
+    - `url`: The URL to extract data from (required).
+    - `extract_rules`: The rules to extract data with (required).
+    - `params`: Additional parameters for the extraction (optional).
+    - `headers`: Headers to forward to the request (optional).
+    - Automatically sets `json` to True.
+
+### SERP Helper Methods
+
+- `search_text(search, params)`
+    - Performs a Google text search using the SERP API.
+    - `search`: The search query to perform on Google (required).
+    - `params`: Additional parameters for the search (optional).
+
+- `search_news(search, params)`
+    - Performs a Google news search using the SERP API.
+    - `search`: The search query to perform on Google News (required).
+    - `params`: Additional parameters for the search (optional).
+
+- `search_images(search, params)`
+    - Performs a Google images search using the SERP API.
+    - `search`: The search query to perform on Google Images (required).
+    - `params`: Additional parameters for the search (optional).
+
+- `search_videos(search, params)`
+    - Performs a Google videos search using the SERP API.
+    - `search`: The search query to perform on Google Videos (required).
+    - `params`: Additional parameters for the search (optional).
+
+- `search_maps(search, params)`
+    - Performs a Google Maps search using the SERP API.
+    - `search`: The search query to perform on Google Maps (required).
+    - `params`: Additional parameters for the search (optional).
 
 
 #### Examples
 - Example to scrape html of URL with infinite scroll
 ```python
-url = "https://ujeebu.com/docs/scrape-me/load-more"
+url = "https://scrape.li/load-more"
 response = ujeebu.scrape(url, params={
     # define what to extract 'raw', 'html', 'screenshot' or 'pdf'
     "response_type": "dddd",
@@ -107,7 +175,7 @@ else:
 
 - Example to take a screenshot of URL
 ```python
-url = "https://ujeebu.com/docs/scrape-me/load-more";
+url = "https://scrape.li/load-more";
 
 response = ujeebu.scrape(url, {
     "response_type": "screenshot",
@@ -182,6 +250,160 @@ if(response.status_code == 200):
 else:
     print("Error:\n", json.dumps(response.json(), indent=2))
 
+```
+
+### Helper Functions Examples
+
+#### Using Scrape Helper Methods
+
+- Get PDF using helper function:
+```python
+from ujeebu_python import UjeebuClient
+
+ujeebu = UjeebuClient(api_key="__YOUR-API-KEY__")
+
+# Get PDF
+response = ujeebu.get_pdf(
+    "https://ujeebu.com/blog/scraping-javascript-heavy-pages-using-puppeteer/"
+)
+if response.status_code == 200:
+    result = response.json()
+    # PDF is base64 encoded
+    print(result['pdf'][:100])
+```
+
+- Get screenshot using helper function:
+```python
+# Take a full page screenshot
+response = ujeebu.get_screenshot(
+    "https://ujeebu.com",
+    params={
+        "screenshot_fullpage": True
+    }
+)
+if response.status_code == 200:
+    result = response.json()
+    # Screenshot is base64 encoded
+    print(result['screenshot'][:100])
+```
+
+- Get HTML using helper function:
+```python
+# Get HTML with JavaScript execution
+response = ujeebu.get_html(
+    "https://ujeebu.com",
+    params={
+        "js": True,
+        "wait_for": 2000
+    }
+)
+if response.status_code == 200:
+    result = response.json()
+    print(result['html'][:100])
+```
+
+- Scrape with extraction rules using helper function:
+```python
+# Extract product data using helper function
+extract_rules = {
+    "products": {
+        "selector": ".product-card",
+        "type": "obj",
+        "multiple": True,
+        "children": {
+            "name": {"selector": ".title", "type": "text"},
+            "price": {"selector": ".price", "type": "text"}
+        }
+    }
+}
+
+response = ujeebu.scrape_with_rules(
+    "https://example.com/products",
+    extract_rules=extract_rules,
+    params={"js": True, "wait_for": 3000}
+)
+if response.status_code == 200:
+    result = response.json()
+    print(json.dumps(result['result'], indent=2))
+```
+
+#### Using SERP Helper Methods
+
+- Google text search:
+```python
+# Perform a text search
+response = ujeebu.search_text(
+    "Nikola Tesla",
+    params={"results_count": 10, "lang": "en"}
+)
+if response.status_code == 200:
+    result = response.json()
+    for item in result['organic_results']:
+        print(f"{item['title']}: {item['link']}")
+```
+
+- Google news search:
+```python
+# Search for news articles
+response = ujeebu.search_news(
+    "Donald Trump",
+    params={"results_count": 20}
+)
+if response.status_code == 200:
+    result = response.json()
+    for news in result['news']:
+        print(f"{news['title']}: {news['link']}")
+```
+
+- Google images search:
+```python
+# Search for images
+response = ujeebu.search_images(
+    "Coffee",
+    params={"results_count": 10}
+)
+if response.status_code == 200:
+    result = response.json()
+    for image in result['images']:
+        print(f"{image['title']}: {image['image']}")
+```
+
+- Google videos search:
+```python
+# Search for videos
+response = ujeebu.search_videos(
+    "Bitcoin",
+    params={"results_count": 10}
+)
+if response.status_code == 200:
+    result = response.json()
+    for video in result['videos']:
+        print(f"{video['title']}: {video['url']}")
+```
+
+- Google Maps search:
+```python
+# Search for places on Google Maps
+response = ujeebu.search_maps(
+    "Italian restaurant",
+    params={"results_count": 10, "location": "ca"}
+)
+if response.status_code == 200:
+    result = response.json()
+    for place in result['maps_results']:
+        print(f"{place['title']} - Rating: {place['rating']}")
+```
+
+#### Using Account Method
+
+```python
+# Get account information
+response = ujeebu.account()
+if response.status_code == 200:
+    account_info = response.json()
+    print(f"Plan: {account_info['plan']}")
+    print(f"Used: {account_info['used']} / {account_info['quota']}")
+    print(f"Used Percent: {account_info['used_percent']}%")
 ```
 
 
