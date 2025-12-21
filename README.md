@@ -4,7 +4,7 @@
 ## Installation
 You can install the SDK using pip:
 ```shell
-pip install ujeebu_python
+pip install ujeebu-python
 ```
 
 
