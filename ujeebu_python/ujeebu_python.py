@@ -212,7 +212,7 @@ class UjeebuClient:
         return self.serp({
             **params,
             'search': search,
-            'search_type': 'text'
+            'search_type': 'search'
         })
     def search_news(self, search, params=None):
         """

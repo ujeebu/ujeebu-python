@@ -362,7 +362,7 @@ class TestUjeebuClientSerpHelpers(unittest.TestCase):
         mock_serp.assert_called_once()
         call_args = mock_serp.call_args
         self.assertEqual(call_args[0][0]['search'], 'test query')
-        self.assertEqual(call_args[0][0]['search_type'], 'text')
+        self.assertEqual(call_args[0][0]['search_type'], 'search')
 
     @patch.object(UjeebuClient, 'serp')
     def test_search_text_with_params(self, mock_serp):
