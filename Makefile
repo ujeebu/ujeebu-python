@@ -85,3 +85,16 @@ dist: clean ## builds source and wheel package
 
 install: clean ## install the package to the active Python's site-packages
 	python3 setup.py install
+
+bump-patch: ## bump patch version (0.0.X)
+	bump2version patch --allow-dirty
+
+bump-minor: ## bump minor version (0.X.0)
+	bump2version minor --allow-dirty
+
+bump-major: ## bump major version (X.0.0)
+	bump2version major --allow-dirty
+
+version: ## show current version
+	@grep -m1 "current_version" setup.cfg | cut -d'=' -f2 | tr -d ' '
+
