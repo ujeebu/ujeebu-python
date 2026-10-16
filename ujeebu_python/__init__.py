@@ -2,7 +2,7 @@
 
 __author__ = """Yacine Alhyane"""
 __email__ = 'y.alhyane@gmail.com'
-__version__ = '0.1.5'
+__version__ = '0.1.6'
 
 
 from .ujeebu_python import UjeebuClient
