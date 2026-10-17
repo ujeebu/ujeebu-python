@@ -16,7 +16,7 @@ test_requirements = [ ]
 
 setup(
     author="Ujeebu",
-    author_email='y.alhyane@gmail.com',
+    author_email='support@ujeebu.com',
     python_requires='>=3.8',
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -30,18 +30,24 @@ setup(
         'Programming Language :: Python :: 3.11',
         'Programming Language :: Python :: 3.12',
     ],
-    description="Ujeebu Python SDK to interact with Ujeebu API",
+    description="Python SDK for the Ujeebu web data API: web scraping with headless Chrome and rotating proxies, Google SERP, article extraction, screenshots and PDF",
     install_requires=requirements,
     license="GNU General Public License v3",
     long_description=readme,
     long_description_content_type='text/markdown',
     include_package_data=True,
-    keywords='ujeebu_python',
+    keywords='ujeebu, web scraping, scraping api, serp api, google search api, headless chrome, article extraction, screenshot, pdf',
     name='ujeebu_python',
     packages=find_packages(include=['ujeebu_python', 'ujeebu_python.*']),
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/ujeebu/ujeebu-python',
-    version='0.1.5',
+    url='https://ujeebu.com',
+    project_urls={
+        'Documentation': 'https://ujeebu.com/docs',
+        'Source': 'https://github.com/ujeebu/ujeebu-python',
+        'Issues': 'https://github.com/ujeebu/ujeebu-python/issues',
+        'Pricing': 'https://ujeebu.com/pricing',
+    },
+    version='0.1.6',
     zip_safe=False,
 )
